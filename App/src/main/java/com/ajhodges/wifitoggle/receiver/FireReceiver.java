@@ -28,7 +28,6 @@ public class FireReceiver extends BroadcastReceiver{
         {
             final int mode = bundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE);
             WifiCalling.toggleWifi(context, mode);
-            //Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
     }
 }
