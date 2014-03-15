@@ -99,7 +99,7 @@
                 - There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
         -->
         <receiver
-            android:name=".receiver.FireReceiver"
+            android:name=".receiver.ToggleReceiver"
             android:exported="true"
             android:process=":background"
             tools:ignore="ExportedReceiver" >
@@ -108,6 +108,16 @@
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
             </intent-filter>
+        </receiver>
+
+        <receiver android:name=".widget.ToggleWidgetProvider" android:label="@string/toggle_widget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED"/>
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/widgetprovider"/>
         </receiver>
     </application>
 
