@@ -113,11 +113,16 @@
         <receiver android:name=".widget.ToggleWidgetProvider" android:label="@string/toggle_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="android.appwidget.action.APPWIDGET_ENABLED"/>
-                <action android:name="android.appwidget.action.APPWIDGET_DISABLED"/>
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                        android:resource="@xml/widgetprovider"/>
+        </receiver>
+
+        <receiver android:name=".receiver.UpdateReceiver">
+            <intent-filter>
+                <!--Called once when disabling wifi calling, twice when enabling -->
+                <action android:name="com.movial.IMS_REGISTRATION"/>
+            </intent-filter>
         </receiver>
     </application>
 

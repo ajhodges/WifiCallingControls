@@ -18,48 +18,57 @@ import com.ajhodges.wifitoggle.bundle.PluginBundleManager;
  * Created by Adam on 3/13/14.
  */
 public class ToggleWidgetProvider extends AppWidgetProvider {
-
+    public final static String EXTRA_WIDGET_IDS = "ToggleWidgetProviderID";
+    public final static String EXTRA_WIDGET_TOGGLE = "ToggleWidgetProviderToggle";
     @Override
-    public void onEnabled(Context context){
-        super.onEnabled(context);
+    public void onReceive(Context context, Intent intent){
+        if(intent.hasExtra(EXTRA_WIDGET_IDS)){
+            int[] ids = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
+            Boolean ipphoneEnabled = null;
+            if(intent.hasExtra(EXTRA_WIDGET_TOGGLE)){
+                //This intent is coming from a widget click event! Broadcast toggle pendingintent
+                Intent fireIntent = new Intent();
+                fireIntent.setAction(com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING);
 
-        Log.v(Constants.LOG_TAG, "Widget added");
+                final Bundle resultBundle = PluginBundleManager.generateBundle(context, WifiCallingManager.MODE_TOGGLE);
+                fireIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 
-        //only create/register one listener for all widgets
-        WifiCallingManager.getInstance(context).registerListener(ToggleWifiCallingListener.getWifiCallingListenerInstance());
-    }
+                Log.v(Constants.LOG_TAG, "Button clicked, toggling Wifi Calling state.");
+                context.sendBroadcast(fireIntent);
 
-    @Override
-    public void onDisabled(Context context){
-        super.onDisabled(context);
+                //set the widget background to reflect the new Wifi Calling State
+                ipphoneEnabled = !intent.getBooleanExtra(EXTRA_WIDGET_TOGGLE, false);
 
-        Log.v(Constants.LOG_TAG, "Last widget removed, unregistering listener");
-
-        //unregister listener when last widget removed
-        WifiCallingManager.getInstance(context).unregisterListener(ToggleWifiCallingListener.getWifiCallingListenerInstance());
+            }
+            //Noticed a change in our settings... update widgets!
+            this.update(context, AppWidgetManager.getInstance(context), ids, ipphoneEnabled);
+        } else {
+            super.onReceive(context, intent);
+        }
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds){
         super.onUpdate(context,appWidgetManager,appWidgetIds);
+        update(context,appWidgetManager,appWidgetIds, null);
+    }
 
+    private void update(Context context, AppWidgetManager manager, int[] ids, Boolean ipphoneEnabled){
         //Called once per widget to initialize the state
-        Log.v(Constants.LOG_TAG, "onUpdate: initializing widget state");
+        Log.v(Constants.LOG_TAG, "onUpdate: updating widget state");
 
         //get the current Wifi Calling state
-        boolean ipphoneEnabled = false;
+        if(ipphoneEnabled == null)
+            ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
 
-        ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
+        for(int i : ids){
+            //set onClick to update the widget and toggle the Wifi Calling state
+            Intent updateWidgets = new Intent();
+            updateWidgets.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+            updateWidgets.putExtra(EXTRA_WIDGET_IDS, ids);
+            updateWidgets.putExtra(EXTRA_WIDGET_TOGGLE, ipphoneEnabled);
 
-
-        for(int i : appWidgetIds){
-            //set onClick to toggle the Wifi Calling state
-            Intent intent = new Intent();
-            intent.setAction(com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING);
-
-            final Bundle resultBundle = PluginBundleManager.generateBundle(context, WifiCallingManager.MODE_TOGGLE);
-            intent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
-            PendingIntent pendingIntent=PendingIntent.getBroadcast(context, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateWidgets, PendingIntent.FLAG_UPDATE_CURRENT);
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
             views.setOnClickPendingIntent(R.id.toggle_button, pendingIntent);
@@ -67,7 +76,7 @@ public class ToggleWidgetProvider extends AppWidgetProvider {
             //set the widget background to reflect the current Wifi Calling State
             views.setImageViewResource(R.id.toggle_button, (ipphoneEnabled ? R.drawable.toggle_on : R.drawable.toggle_off));
 
-            appWidgetManager.updateAppWidget(i, views);
+            manager.updateAppWidget(i, views);
         }
     }
 

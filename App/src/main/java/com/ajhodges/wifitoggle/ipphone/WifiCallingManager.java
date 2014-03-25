@@ -1,19 +1,14 @@
 package com.ajhodges.wifitoggle.ipphone;
 
 import android.content.Context;
-import android.database.ContentObserver;
-import android.net.Uri;
 import android.os.Handler;
 import android.util.Log;
 
 import com.ajhodges.wifitoggle.Constants;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import dalvik.system.DexClassLoader;
 
@@ -28,40 +23,15 @@ public class WifiCallingManager {
     final private static String apkFile = "/system/priv-app/WifiCall.apk";
     private static Class<?> ipPhoneSettings = null;
 
-    private List<WifiCallingListener> listeners;
-
-    private static Context mContext;
-    private static Handler handler = new Handler();
-
     private WifiCallingManager(Context context){
-        mContext = context;
-
         //Use dexclassloader to get the IPPhoneSettings class from the WifiCall app
-        File dexOutputDir = context.getDir("dex", 0);
+        File dexOutputDir = context.getDir("dex", Context.MODE_PRIVATE);
         DexClassLoader loader = new DexClassLoader(apkFile, dexOutputDir.getAbsolutePath(), null, context.getClassLoader());
         try {
             ipPhoneSettings = loader.loadClass("com.movial.ipphone.IPPhoneSettings");
         } catch (ClassNotFoundException e) {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
         }
-
-        listeners = new ArrayList<WifiCallingListener>();
-
-        try {
-            Field uriField = ipPhoneSettings.getField("CONTENT_URI");
-            Uri contentURI = (Uri)uriField.get(null);
-
-            Log.d(Constants.LOG_TAG, contentURI.toString());
-            context.getApplicationContext().getContentResolver().registerContentObserver(
-                    contentURI, true, new IPPhoneContentObserver(handler));
-
-        } catch (NoSuchFieldException e) {
-            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
-        } catch (IllegalAccessException e) {
-            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
-        }
-
-
     }
     private static WifiCallingManager instance = null;
     public static WifiCallingManager getInstance(Context context){
@@ -133,40 +103,6 @@ public class WifiCallingManager {
                     }
                 }
             }
-        }
-    }
-
-    public void registerListener(WifiCallingListener listener){
-        listeners.add(listener);
-    }
-    public void unregisterListener(WifiCallingListener listener) { listeners.remove(listener); }
-
-    private void notifyListeners(Context context){
-        for(WifiCallingListener listener : listeners){
-            listener.onWifiCallingStateChanged(context);
-        }
-    }
-
-    public class IPPhoneContentObserver extends ContentObserver {
-        /**
-         * Creates a content observer.
-         *
-         * @param handler The handler to run {@link #onChange} on, or null if none.
-         */
-        public IPPhoneContentObserver(Handler handler) {
-            super(handler);
-        }
-
-        @Override
-        public boolean deliverSelfNotifications(){
-            return true;
-        }
-
-        @Override
-        public void onChange(boolean selfChange){
-            Log.v(Constants.LOG_TAG, "IPPhoneContentObserver: CELL_ONLY CHANGED!");
-            super.onChange(selfChange);
-            notifyListeners(mContext);
         }
     }
 }
