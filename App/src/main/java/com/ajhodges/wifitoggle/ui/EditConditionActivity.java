@@ -1,5 +1,6 @@
 package com.ajhodges.wifitoggle.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
@@ -8,6 +9,7 @@ import android.widget.RadioGroup;
 import com.ajhodges.wifitoggle.R;
 import com.ajhodges.wifitoggle.bundle.BundleScrubber;
 import com.ajhodges.wifitoggle.bundle.PluginBundleManager;
+import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
 
 /**
  * Created by Adam on 3/25/2014.
@@ -33,12 +35,12 @@ public class EditConditionActivity extends AbstractPluginActivity {
                 final int mode = localeBundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE);
 
                 switch (mode) {
-                    case 0: {
+                    case WifiCallingManager.MODE_OFF: {
                         RadioButton button = (RadioButton) findViewById(R.id.off_state);
                         button.setChecked(true);
                         break;
                     }
-                    case 1: {
+                    case WifiCallingManager.MODE_ON: {
                         RadioButton button = (RadioButton) findViewById(R.id.on_state);
                         button.setChecked(true);
                         break;
@@ -57,11 +59,11 @@ public class EditConditionActivity extends AbstractPluginActivity {
             int mode = 0;
             switch (rg.getCheckedRadioButtonId()) {
                 case R.id.off_state: {
-                    mode = 0;
+                    mode = WifiCallingManager.MODE_OFF;
                     break;
                 }
                 case R.id.on_state: {
-                    mode = 1;
+                    mode = WifiCallingManager.MODE_ON;
                     break;
                 }
             }
@@ -80,6 +82,11 @@ public class EditConditionActivity extends AbstractPluginActivity {
             final Bundle resultBundle =
                     PluginBundleManager.generateBundle(getApplicationContext(), mode);
             resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
+
+            /*
+             * The blurb is concise status text to be displayed in the host's UI.
+             */
+            resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, PluginBundleManager.generateBlurb(getApplicationContext(), mode));
 
             setResult(RESULT_OK, resultIntent);
         }

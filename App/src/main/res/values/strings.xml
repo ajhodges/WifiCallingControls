@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="plugin_name">Wifi Calling Toggle</string>
+    <string name="plugin_name">Wifi Calling</string>
     <string name="on_mode">On</string>
     <string name="off_mode">Off</string>
     <string name="toggle_mode">Toggle</string>
-    <string name="toggle_widget">Toggle Wifi Calling</string>
+    <string name="toggle_widget">Wifi Calling Toggle</string>
 </resources>

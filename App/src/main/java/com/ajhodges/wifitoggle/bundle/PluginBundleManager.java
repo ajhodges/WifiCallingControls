@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.ajhodges.wifitoggle.Constants;
+import com.ajhodges.wifitoggle.R;
+import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
 
 /**
  * Class for managing the {@link com.twofortyfouram.locale.Intent#EXTRA_BUNDLE} for this plug-in.
@@ -126,6 +128,17 @@ public final class PluginBundleManager
         result.putInt(BUNDLE_EXTRA_INT_MODE, mode);
 
         return result;
+    }
+
+    public static String generateBlurb(final Context context, final int mode){
+        switch(mode){
+            case WifiCallingManager.MODE_ON:
+                return context.getString(R.string.on_mode);
+            case WifiCallingManager.MODE_OFF:
+                return context.getString(R.string.off_mode);
+            default:
+                return context.getString(R.string.toggle_mode);
+        }
     }
 
     /**
