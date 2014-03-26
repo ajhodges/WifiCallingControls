@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import com.ajhodges.wifitoggle.ui.EditConditionActivity;
 import com.ajhodges.wifitoggle.widget.ToggleWidgetProvider;
 
 /**
@@ -30,7 +31,11 @@ public class UpdateReceiver extends BroadcastReceiver {
             updateWidgets.putExtra(ToggleWidgetProvider.EXTRA_WIDGET_IDS, widgetIds);
             context.sendBroadcast(updateWidgets);
 
-            //Locale broadcast
+            //Notify Locale that state has changed
+            Intent notifyLocale = new Intent();
+            notifyLocale.setAction(com.twofortyfouram.locale.Intent.ACTION_REQUEST_QUERY);
+            notifyLocale.putExtra(com.twofortyfouram.locale.Intent.EXTRA_ACTIVITY, EditConditionActivity.class.getName());
+            context.sendBroadcast(notifyLocale);
 
         } else{
             //Wifi calling fully enabled, ready for calls

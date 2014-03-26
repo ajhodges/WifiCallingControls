@@ -77,7 +77,7 @@
                  - The Activity requires permissions not available to Locale
         -->
         <activity
-            android:name=".ui.EditActivity"
+            android:name=".ui.EditSettingActivity"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/plugin_name"
@@ -89,6 +89,31 @@
             <!-- this Intent filter allows the plug-in to be discovered by Locale -->
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+
+            </intent-filter>
+        </activity>
+        <!--
+     This is the "edit" Activity. Note that Locale will reject plug-in Activities for the following reasons:
+         - Missing "android:label=[...]"
+         - Missing "android:icon=[...]"
+         - The Activity isn't exported (e.g. android:exported="false")
+         - The Activity isn't enabled (e.g. android:enabled="false")
+         - The Activity requires permissions not available to Locale
+-->
+        <activity
+            android:name=".ui.EditConditionActivity"
+            android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/plugin_name"
+            android:theme="@style/Theme.Locale.Dark"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="ExportedActivity" >
+
+            <!-- this Intent filter allows the plug-in to be discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_CONDITION" />
+
             </intent-filter>
         </activity>
         <!--
@@ -122,6 +147,12 @@
             <intent-filter>
                 <!--Called once when disabling wifi calling, twice when enabling -->
                 <action android:name="com.movial.IMS_REGISTRATION"/>
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".receiver.QueryReceiver">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.QUERY_CONDITION" />
             </intent-filter>
         </receiver>
     </application>

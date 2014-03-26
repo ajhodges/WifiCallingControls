@@ -7,9 +7,9 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/App" />
-            <option value="$PROJECT_DIR$/locale-api" />
+            <option value="D:\Eclipse\WifiCallingToggle" />
+            <option value="D:\Eclipse\WifiCallingToggle\App" />
+            <option value="D:\Eclipse\WifiCallingToggle\locale-api" />
           </set>
         </option>
       </GradleProjectSettings>

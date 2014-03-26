@@ -13,6 +13,6 @@
             android:id="@+id/toggle_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/toggle_on"/>
+            android:src="@drawable/ic_toggle_on"/>
         </LinearLayout>
 </FrameLayout>
