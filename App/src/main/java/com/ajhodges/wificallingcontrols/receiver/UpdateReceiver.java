@@ -1,12 +1,12 @@
-package com.ajhodges.wifitoggle.receiver;
+package com.ajhodges.wificallingcontrols.receiver;
 
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import com.ajhodges.wifitoggle.ui.EditConditionActivity;
-import com.ajhodges.wifitoggle.widget.ToggleWidgetProvider;
+import com.ajhodges.wificallingcontrols.ui.EditConditionActivity;
+import com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider;
 
 /**
  * Created by Adam on 3/25/14.

@@ -20,7 +20,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ajhodges.wifitoggle"
+    package="com.ajhodges.wificallingcontrols"
     android:installLocation="internalOnly"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -46,7 +46,7 @@
 
     <!-- When hardware acceleration is enabled, the RAM memory usage of the app is significantly increased as soon as any UI is displayed. To reduce the memory usage of a plug-in which is primarily a background app, either (1) hardware acceleration should be disabled or (2) the plug-in's BroadcastReceiver (and any applicable Service) should be put into a different process. This example plug-in creates two processes. -->
     <application
-        android:name=".PluginApplication"
+        android:name="com.ajhodges.wificallingcontrols.PluginApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
@@ -59,7 +59,7 @@
             will help when users tap the "Open" button in the Google Play store.
         -->
         <activity
-            android:name="com.ajhodges.wifitoggle.ui.InfoActivity"
+            android:name="com.ajhodges.wificallingcontrols.ui.InfoActivity"
             android:exported="true"
             tools:ignore="ExportedActivity" >
             <intent-filter>
@@ -77,7 +77,7 @@
                  - The Activity requires permissions not available to Locale
         -->
         <activity
-            android:name=".ui.EditSettingActivity"
+            android:name="com.ajhodges.wificallingcontrols.ui.EditSettingActivity"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/plugin_name"
@@ -101,7 +101,7 @@
          - The Activity requires permissions not available to Locale
 -->
         <activity
-            android:name=".ui.EditConditionActivity"
+            android:name="com.ajhodges.wificallingcontrols.ui.EditConditionActivity"
             android:exported="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/plugin_name"
@@ -124,7 +124,7 @@
                 - There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
         -->
         <receiver
-            android:name=".receiver.ToggleReceiver"
+            android:name="com.ajhodges.wificallingcontrols.receiver.ToggleReceiver"
             android:exported="true"
             android:process=":background"
             tools:ignore="ExportedReceiver" >
@@ -135,7 +135,7 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".widget.ToggleWidgetProvider" android:label="@string/toggle_widget">
+        <receiver android:name="com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider" android:label="@string/toggle_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
@@ -143,14 +143,14 @@
                        android:resource="@xml/widgetprovider"/>
         </receiver>
 
-        <receiver android:name=".receiver.UpdateReceiver">
+        <receiver android:name="com.ajhodges.wificallingcontrols.receiver.UpdateReceiver">
             <intent-filter>
                 <!--Called once when disabling wifi calling, twice when enabling -->
                 <action android:name="com.movial.IMS_REGISTRATION"/>
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".receiver.QueryReceiver">
+        <receiver android:name="com.ajhodges.wificallingcontrols.receiver.QueryReceiver">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.QUERY_CONDITION" />
             </intent-filter>

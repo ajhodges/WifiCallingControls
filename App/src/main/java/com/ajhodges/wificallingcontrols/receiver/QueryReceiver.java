@@ -1,4 +1,4 @@
-package com.ajhodges.wifitoggle.receiver;
+package com.ajhodges.wificallingcontrols.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ajhodges.wifitoggle.Constants;
-import com.ajhodges.wifitoggle.bundle.BundleScrubber;
-import com.ajhodges.wifitoggle.bundle.PluginBundleManager;
-import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
+import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
+import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 
 /**
  * Created by Adam on 3/25/2014.

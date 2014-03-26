@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.ajhodges.wifitoggle;
+package com.ajhodges.wificallingcontrols;
 
 import android.content.Context;
 
@@ -33,11 +33,6 @@ public final class Constants
      * Flag to enable runtime checking of method parameters.
      */
     public static final boolean IS_PARAMETER_CHECKING_ENABLED = BuildConfig.DEBUG;
-
-    /**
-     * Flag to enable runtime checking of whether a method is called on the correct thread.
-     */
-    public static final boolean IS_CORRECT_THREAD_CHECKING_ENABLED = BuildConfig.DEBUG;
 
     /**
      * Determines the "versionCode" in the {@code AndroidManifest}.

@@ -10,15 +10,15 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.ajhodges.wifitoggle.bundle;
+package com.ajhodges.wificallingcontrols.bundle;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ajhodges.wifitoggle.Constants;
-import com.ajhodges.wifitoggle.R;
-import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
+import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.R;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 
 /**
  * Class for managing the {@link com.twofortyfouram.locale.Intent#EXTRA_BUNDLE} for this plug-in.

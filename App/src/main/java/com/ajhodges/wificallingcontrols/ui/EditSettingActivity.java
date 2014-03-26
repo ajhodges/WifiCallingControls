@@ -10,18 +10,17 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.ajhodges.wifitoggle.ui;
+package com.ajhodges.wificallingcontrols.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.ajhodges.wifitoggle.R;
-import com.ajhodges.wifitoggle.bundle.BundleScrubber;
-import com.ajhodges.wifitoggle.bundle.PluginBundleManager;
-import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
+import com.ajhodges.wificallingcontrols.R;
+import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
+import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 
 /**
  * This is the "Edit" activity for a Locale Plug-in.

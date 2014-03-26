@@ -1,10 +1,9 @@
-package com.ajhodges.wifitoggle.ipphone;
+package com.ajhodges.wificallingcontrols.ipphone;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
-import com.ajhodges.wifitoggle.Constants;
+import com.ajhodges.wificallingcontrols.Constants;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;

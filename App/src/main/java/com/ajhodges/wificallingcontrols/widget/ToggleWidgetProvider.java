@@ -1,4 +1,4 @@
-package com.ajhodges.wifitoggle.widget;
+package com.ajhodges.wificallingcontrols.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 
-import com.ajhodges.wifitoggle.Constants;
-import com.ajhodges.wifitoggle.R;
-import com.ajhodges.wifitoggle.ipphone.WifiCallingManager;
-import com.ajhodges.wifitoggle.bundle.PluginBundleManager;
+import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.R;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
+import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 
 /**
  * Created by Adam on 3/13/14.

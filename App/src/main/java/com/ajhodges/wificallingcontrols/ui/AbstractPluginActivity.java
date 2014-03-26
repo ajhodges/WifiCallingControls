@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.ajhodges.wifitoggle.ui;
+package com.ajhodges.wificallingcontrols.ui;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -22,8 +22,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.twofortyfouram.locale.BreadCrumber;
-import com.ajhodges.wifitoggle.Constants;
-import com.ajhodges.wifitoggle.R;
+import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.R;
 
 /**
  * Superclass for plug-in Activities. This class takes care of initializing aspects of the plug-in's UI to
