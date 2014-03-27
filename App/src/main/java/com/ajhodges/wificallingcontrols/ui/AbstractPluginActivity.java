@@ -13,7 +13,7 @@
 package com.ajhodges.wificallingcontrols.ui;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,13 +29,8 @@ import com.ajhodges.wificallingcontrols.R;
  * Superclass for plug-in Activities. This class takes care of initializing aspects of the plug-in's UI to
  * look more integrated with the plug-in host.
  */
-public abstract class AbstractPluginActivity extends Activity
+public abstract class AbstractPluginActivity extends ListActivity
 {
-    /**
-     * Flag boolean that can only be set to true via the "Don't Save"
-     * {@link com.twofortyfouram.locale.platform.R.id#twofortyfouram_locale_menu_dontsave} menu item in
-     * {@link #onMenuItemSelected(int, MenuItem)}.
-     */
     /*
      * There is no need to save/restore this field's state.
      */

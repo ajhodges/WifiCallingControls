@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <MultiSelectListPreference
+        android:dialogTitle="@string/select_mode"
+        android:key="select_mode"
+        android:title="@string/select_mode"
+        android:entries="@array/select_modes"
+        android:entryValues="@array/select_modes_vals"
+        android:defaultValue="@array/empty"
+        />
+</PreferenceScreen>

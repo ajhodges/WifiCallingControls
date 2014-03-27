@@ -13,14 +13,18 @@
 package com.ajhodges.wificallingcontrols.ui;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.ajhodges.wificallingcontrols.R;
 import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
+
+import java.util.ArrayList;
 
 /**
  * This is the "Edit" activity for a Locale Plug-in.
@@ -39,6 +43,11 @@ import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
  */
 public final class EditSettingActivity extends AbstractPluginActivity
 {
+    static TypedArray modeNames;
+    static TypedArray modeVals;
+    ArrayList<String> optionNames = new ArrayList<String>();
+    ArrayAdapter<String> options;
+    static int selectedMode = -1;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState)
@@ -50,7 +59,24 @@ public final class EditSettingActivity extends AbstractPluginActivity
         final Bundle localeBundle = getIntent().getBundleExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE);
         BundleScrubber.scrub(localeBundle);
 
-        setContentView(R.layout.edit_setting);
+        setContentView(R.layout.edit_view);
+
+        modeNames = getResources().obtainTypedArray(R.array.select_modes);
+        modeVals = getResources().obtainTypedArray(R.array.select_modes_vals);
+
+        for(int i=0 ; i<modeNames.length() ; i++){
+            optionNames.add(i, modeNames.getString(i));
+        }
+        options = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, optionNames);
+        setListAdapter(options);
+
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String selected = options.getItem(position);
+                selectedMode = modeVals.getInt(optionNames.indexOf(selected),0);
+            }
+        });
 
         if (null == savedInstanceState)
         {
@@ -61,18 +87,15 @@ public final class EditSettingActivity extends AbstractPluginActivity
 
                 switch (mode) {
                     case WifiCallingManager.MODE_TOGGLE: {
-                        RadioButton button = (RadioButton) findViewById(R.id.toggle_mode);
-                        button.setChecked(true);
+                        getListView().setItemChecked(options.getPosition(getString(R.string.toggle_mode)), true);
                         break;
                     }
                     case WifiCallingManager.MODE_OFF: {
-                        RadioButton button = (RadioButton) findViewById(R.id.off_mode);
-                        button.setChecked(true);
+                        getListView().setItemChecked(options.getPosition(getString(R.string.off_mode)), true);
                         break;
                     }
                     case WifiCallingManager.MODE_ON: {
-                        RadioButton button = (RadioButton) findViewById(R.id.on_mode);
-                        button.setChecked(true);
+                        getListView().setItemChecked(options.getPosition(getString(R.string.on_mode)), true);
                         break;
                     }
                 }
@@ -85,24 +108,6 @@ public final class EditSettingActivity extends AbstractPluginActivity
     {
         if (!isCanceled())
         {
-            RadioGroup rg = (RadioGroup)findViewById(R.id.mode_buttons);
-            int mode = -1;
-            switch (rg.getCheckedRadioButtonId()) {
-                case R.id.toggle_mode: {
-                    mode = WifiCallingManager.MODE_TOGGLE;
-                    break;
-                }
-                case R.id.off_mode: {
-                    mode = WifiCallingManager.MODE_OFF;
-                    break;
-                }
-                case R.id.on_mode: {
-                    mode = WifiCallingManager.MODE_ON;
-                    break;
-                }
-            }
-
-
             final Intent resultIntent = new Intent();
 
             /*
@@ -114,13 +119,13 @@ public final class EditSettingActivity extends AbstractPluginActivity
              * stored in the Bundle, as Locale's classloader will not recognize it).
              */
             final Bundle resultBundle =
-                    PluginBundleManager.generateBundle(getApplicationContext(), mode);
+                    PluginBundleManager.generateBundle(getApplicationContext(), selectedMode);
             resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 
             /*
              * The blurb is concise status text to be displayed in the host's UI.
              */
-            resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, PluginBundleManager.generateBlurb(getApplicationContext(), mode));
+            resultIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_STRING_BLURB, PluginBundleManager.generateBlurb(getApplicationContext(), selectedMode));
 
             setResult(RESULT_OK, resultIntent);
         }
