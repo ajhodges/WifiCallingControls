@@ -1,6 +1,8 @@
 package com.ajhodges.wificallingcontrols.ipphone;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.ajhodges.wificallingcontrols.Constants;
@@ -19,10 +21,21 @@ public class WifiCallingManager {
     final public static int MODE_OFF = 0;
     final public static int MODE_ON = 1;
 
-    final private static String apkFile = "/system/priv-app/WifiCall.apk";
+    private static String apkFile = null;
     private static Class<?> ipPhoneSettings = null;
 
     private WifiCallingManager(Context context){
+        //Find location of the WifiCall app
+        PackageManager pm = context.getPackageManager();
+        for (ApplicationInfo app : pm.getInstalledApplications(0)){
+            if(app.packageName.equals("com.movial.wificall")){
+                apkFile = app.sourceDir;
+            }
+        }
+        if(apkFile == null){
+            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+        }
+
         //Use dexclassloader to get the IPPhoneSettings class from the WifiCall app
         File dexOutputDir = context.getDir("dex", Context.MODE_PRIVATE);
         DexClassLoader loader = new DexClassLoader(apkFile, dexOutputDir.getAbsolutePath(), null, context.getClassLoader());
