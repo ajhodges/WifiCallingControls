@@ -26,18 +26,20 @@ public class ToggleWidgetProvider extends AppWidgetProvider {
             int[] ids = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
             Boolean ipphoneEnabled = null;
             if(intent.hasExtra(EXTRA_WIDGET_TOGGLE)){
+                //set the widget background to reflect the new Wifi Calling State
+                ipphoneEnabled = !intent.getBooleanExtra(EXTRA_WIDGET_TOGGLE, false);
+
                 //This intent is coming from a widget click event! Broadcast toggle pendingintent
                 Intent fireIntent = new Intent();
                 fireIntent.setAction(com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING);
 
-                final Bundle resultBundle = PluginBundleManager.generateBundle(context, WifiCallingManager.MODE_TOGGLE);
+                final Bundle resultBundle = PluginBundleManager.generateBundle(context, ipphoneEnabled ? 1 : 0);
                 fireIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 
                 Log.v(Constants.LOG_TAG, "Button clicked, toggling Wifi Calling state.");
                 context.sendBroadcast(fireIntent);
 
-                //set the widget background to reflect the new Wifi Calling State
-                ipphoneEnabled = !intent.getBooleanExtra(EXTRA_WIDGET_TOGGLE, false);
+
 
             }
             //Noticed a change in our settings... update widgets!
