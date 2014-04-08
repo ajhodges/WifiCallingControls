@@ -11,8 +11,8 @@ import android.widget.RemoteViews;
 
 import com.ajhodges.wificallingcontrols.Constants;
 import com.ajhodges.wificallingcontrols.R;
-import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 
 /**
  * Created by Adam on 3/13/14.

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 import com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider;
 
 /**
