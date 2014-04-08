@@ -53,7 +53,7 @@
         android:label="@string/plugin_name"
         android:theme="@style/Theme.Locale.Dark"
         android:uiOptions="splitActionBarWhenNarrow"
-        android:debuggable="false">
+        >
 
         <!--
              If this plug-in does not stand alone (e.g. it is only a plug-in for Locale and does not have a Launcher Activity), including this in the manifest
