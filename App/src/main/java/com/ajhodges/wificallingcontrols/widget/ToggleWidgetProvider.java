@@ -20,13 +20,17 @@ import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 public class ToggleWidgetProvider extends AppWidgetProvider {
     public final static String EXTRA_WIDGET_IDS = "ToggleWidgetProviderID";
     public final static String EXTRA_WIDGET_TOGGLE = "ToggleWidgetProviderToggle";
-    public static boolean widgetUpdating = false;
+
     @Override
     public void onReceive(Context context, Intent intent){
         if(intent.hasExtra(EXTRA_WIDGET_IDS)){
             int[] ids = intent.getIntArrayExtra(EXTRA_WIDGET_IDS);
             Boolean ipphoneEnabled = null;
-            if(intent.hasExtra(EXTRA_WIDGET_TOGGLE) && !widgetUpdating){
+            Boolean widgetUpdating = context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).getBoolean("widgetUpdating", false);
+            if(widgetUpdating) {
+                return;
+            }
+            else if(intent.hasExtra(EXTRA_WIDGET_TOGGLE)){
                 //set the widget background to reflect the new Wifi Calling State
                 ipphoneEnabled = !intent.getBooleanExtra(EXTRA_WIDGET_TOGGLE, false);
 
@@ -37,10 +41,9 @@ public class ToggleWidgetProvider extends AppWidgetProvider {
                 final Bundle resultBundle = PluginBundleManager.generateBundle(context, ipphoneEnabled ? 1 : 0);
                 fireIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
 
+                context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", true);
                 Log.v(Constants.LOG_TAG, "Button clicked, toggling Wifi Calling state.");
                 context.sendBroadcast(fireIntent);
-
-                widgetUpdating = true;
             }
             //Noticed a change in our settings... update widgets!
             this.update(context, AppWidgetManager.getInstance(context), ids, ipphoneEnabled);

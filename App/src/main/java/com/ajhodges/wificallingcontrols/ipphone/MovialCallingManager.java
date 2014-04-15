@@ -35,6 +35,7 @@ public class MovialCallingManager extends WifiCallingManager {
         return instance;
     }
 
+    @Override
     //Test if Wifi calling is enabled
     public boolean getIPPhoneEnabled(Context context) {
         //Use reflection to get the current state of Wifi Calling
@@ -55,6 +56,7 @@ public class MovialCallingManager extends WifiCallingManager {
         return ipphoneEnabled;
     }
 
+    @Override
     //Toggle Wifi Calling mode(-1=toggle, 0=off, 1=on)
     public void toggleWifi(Context context, int mode) {
         boolean ipphoneEnabled = getIPPhoneEnabled(context);

@@ -25,8 +25,13 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <!-- Locale 4.x supports API 8 or greater. -->
     <uses-permission android:name="movial.permission.IPPHONE_SETTINGS" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.READ_WFCPROVIDER" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_REGISTER"/>
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_REGISTRATION_STATE" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_WILDCARD" />
+
+    <!-- Locale 4.x supports API 8 or greater. -->
     <uses-sdk
         android:minSdkVersion="15"
         android:targetSdkVersion="17" />
@@ -144,10 +149,11 @@
                        android:resource="@xml/widgetprovider"/>
         </receiver>
 
-        <receiver android:name="com.ajhodges.wificallingcontrols.receiver.UpdateReceiver">
+        <receiver android:name="com.ajhodges.wificallingcontrols.receiver.UpdateReceiver" android:exported="true">
             <intent-filter>
                 <!--Called once when disabling wifi calling, twice when enabling -->
                 <action android:name="com.movial.IMS_REGISTRATION"/>
+                <action android:name="action_wfc_switch_profile_broadcast"/>
             </intent-filter>
         </receiver>
 
@@ -157,5 +163,4 @@
             </intent-filter>
         </receiver>
     </application>
-
 </manifest>

@@ -35,4 +35,5 @@ android {
 
 dependencies {
     compile project(':locale-api')
+    provided files('src/main/libs/TmoWfcUtils.jar')
 }

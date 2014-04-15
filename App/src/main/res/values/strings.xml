@@ -6,4 +6,5 @@
     <string name="off_mode">Off</string>
     <string name="toggle_mode">Toggle</string>
     <string name="toggle_widget">WiFi Calling Toggle</string>
+    <string name="samsung_toast">Error: WiFi Calling Controls must be installed as a system app. This requires root. Search the app store for \'system mover\'.</string>
 </resources>

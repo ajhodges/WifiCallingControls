@@ -28,16 +28,23 @@ public abstract class WifiCallingManager {
                 if(app.packageName.equals("com.movial.wificall")){
                     type = TYPE_MOVIAL;
                     apkFile = app.sourceDir;
-                } else if (app.packageName.equals("com.samsung")) {
+                    break;
+                } else if (app.packageName.equals("com.samsung.tmowfc.wfccontroller")) {
                     type = TYPE_SAMSUNG;
-                } else if (app.packageName.equals("kineto")){
+                    //I don't like this (hardcoding)... but the class we want is in an external library.
+                    apkFile = "/system/framework/TmoWfcUtils.jar";
+                    break;
+                } else if (app.packageName.equals("com.android.kineto")){
                     type = TYPE_KINETO;
+                    //break;
                 }
             }
         }
         switch(type){
             case TYPE_MOVIAL:
                 return MovialCallingManager.getInstance(context);
+            case TYPE_SAMSUNG:
+                return SamsungCallingManager.getInstance(context);
             default:
                 return null;
         }

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
-import com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider;
 
 /**
  * Created by Adam on 3/9/14.
@@ -32,7 +31,7 @@ public class ToggleReceiver extends BroadcastReceiver{
             WifiCallingManager wifiCallingManager = WifiCallingManager.getInstance(context);
             wifiCallingManager.toggleWifi(context, mode);
 
-            ToggleWidgetProvider.widgetUpdating = false;
+            context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", false);
         }
     }
 }
