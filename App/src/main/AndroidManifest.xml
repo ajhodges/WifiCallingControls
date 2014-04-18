@@ -22,8 +22,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ajhodges.wificallingcontrols"
     android:installLocation="internalOnly"
-    android:versionCode="2"
-    android:versionName="1.01" >
+    android:versionCode="3"
+    android:versionName="1.1" >
 
     <uses-permission android:name="movial.permission.IPPHONE_SETTINGS" />
     <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.READ_WFCPROVIDER" />
