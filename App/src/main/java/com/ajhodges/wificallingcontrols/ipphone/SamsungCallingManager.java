@@ -19,9 +19,6 @@ import dalvik.system.DexClassLoader;
  * Created by Adam on 4/7/2014.
  */
 public class SamsungCallingManager extends WifiCallingManager{
-    public enum RegisterContractState {
-        DONT_REGISTER, REGISTER, NO_STATE
-    }
     private static Class<?> WfcDbHelper = null;
     private static Class<? extends Enum> WfcDbHelperRegistration = null;
     private static Method setRegister = null;
@@ -55,7 +52,7 @@ public class SamsungCallingManager extends WifiCallingManager{
         try {
             Method getRegister = WfcDbHelper.getMethod("getRegister", new Class[]{ContentResolver.class});
             Enum registerContractState = (Enum)getRegister.invoke(null, context.getContentResolver());
-            ipphoneEnabled = (registerContractState.name().equals(RegisterContractState.REGISTER.name()));
+            ipphoneEnabled = (registerContractState.name().equals("REGISTER"));
 
         } catch (NoSuchMethodException e) {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
@@ -79,20 +76,15 @@ public class SamsungCallingManager extends WifiCallingManager{
                 //toggle mode
                 Log.d(Constants.LOG_TAG, "Turning wifi calling " + (!ipphoneEnabled ? "on" : "off") + "...");
                 setRegister.invoke(null, context.getContentResolver(), Enum.valueOf(WfcDbHelperRegistration, (ipphoneEnabled) ? "DONT_REGISTER" : "REGISTER" ));
-
             } else {
-                //Wifi Calling is OFF when cellOnly == true
                 if ((mode == MODE_ON) == ipphoneEnabled) {
                     //nothing to be done
                     Log.d(Constants.LOG_TAG, "Wifi calling is already " + (ipphoneEnabled ? "on" : "off") + "...");
                     return;
                 }
-
                 //set mode enabled/disabled
                 Log.d(Constants.LOG_TAG, "Turning wifi calling " + ((mode == MODE_ON) ? "on" : "off") + "...");
-
                 setRegister.invoke(null, context.getContentResolver(), Enum.valueOf(WfcDbHelperRegistration, (mode == MODE_ON) ? "REGISTER" : "DONT_REGISTER"));
-
             }
         } catch(IllegalAccessException e) {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
