@@ -76,10 +76,10 @@ public class ToggleWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateWidgets, PendingIntent.FLAG_UPDATE_CURRENT);
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-            views.setOnClickPendingIntent(R.id.toggle_button, pendingIntent);
+            views.setOnClickPendingIntent(R.id.toggle_button_view, pendingIntent);
 
             //set the widget background to reflect the current Wifi Calling State
-            views.setImageViewResource(R.id.toggle_button, (ipphoneEnabled ? R.drawable.ic_toggle_on : R.drawable.ic_toggle_off));
+            views.setImageViewResource(R.id.toggle_button_view, (ipphoneEnabled ? R.drawable.ic_toggle_on : R.drawable.ic_toggle_off));
 
             manager.updateAppWidget(i, views);
         }
