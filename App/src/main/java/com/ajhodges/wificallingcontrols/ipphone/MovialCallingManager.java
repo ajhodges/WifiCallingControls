@@ -3,10 +3,8 @@ package com.ajhodges.wificallingcontrols.ipphone;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.ajhodges.wificallingcontrols.Constants;
-import com.ajhodges.wificallingcontrols.R;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
