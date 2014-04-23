@@ -18,7 +18,7 @@ import android.util.Log;
 
 import com.ajhodges.wificallingcontrols.Constants;
 import com.ajhodges.wificallingcontrols.R;
-import com.ajhodges.wificallingcontrols.ipphone.MovialCallingManager;
+import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 
 /**
  * Class for managing the {@link com.twofortyfouram.locale.Intent#EXTRA_BUNDLE} for this plug-in.
@@ -132,12 +132,20 @@ public final class PluginBundleManager
 
     public static String generateBlurb(final Context context, final int mode){
         switch(mode){
-            case MovialCallingManager.MODE_ON:
+            case WifiCallingManager.MODE_ON:
                 return context.getString(R.string.on_mode);
-            case MovialCallingManager.MODE_OFF:
+            case WifiCallingManager.MODE_OFF:
                 return context.getString(R.string.off_mode);
-            default:
+            case WifiCallingManager.MODE_TOGGLE:
                 return context.getString(R.string.toggle_mode);
+            case WifiCallingManager.PREFER_WIFI:
+                return context.getString(R.string.wifi_preferred_mode);
+            case WifiCallingManager.PREFER_CELL:
+                return context.getString(R.string.cell_preferred_mode);
+            case WifiCallingManager.PREFER_NEVER_CELL:
+                return context.getString(R.string.never_cell_mode);
+            default:
+                return "N/A";
         }
     }
 

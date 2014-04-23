@@ -43,8 +43,9 @@ import java.util.ArrayList;
  */
 public final class EditSettingActivity extends AbstractPluginActivity
 {
-    static TypedArray modeNames;
-    static TypedArray modeVals;
+    static TypedArray stateModeNames;
+    static TypedArray stateModeVals;
+
     ArrayList<String> optionNames = new ArrayList<String>();
     ArrayAdapter<String> options;
     static int selectedMode = -1;
@@ -61,12 +62,15 @@ public final class EditSettingActivity extends AbstractPluginActivity
 
         setContentView(R.layout.edit_view);
 
-        modeNames = getResources().obtainTypedArray(R.array.select_modes);
-        modeVals = getResources().obtainTypedArray(R.array.select_modes_vals);
+        stateModeNames = getResources().obtainTypedArray(R.array.select_modes);
+        stateModeVals = getResources().obtainTypedArray(R.array.select_modes_vals);
 
-        for(int i=0 ; i<modeNames.length() ; i++){
-            optionNames.add(i, modeNames.getString(i));
+        for(int i=0 ; i< stateModeNames.length() ; i++){
+            optionNames.add(i, stateModeNames.getString(i));
         }
+
+
+
         options = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, optionNames);
         setListAdapter(options);
 
@@ -74,7 +78,8 @@ public final class EditSettingActivity extends AbstractPluginActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selected = options.getItem(position);
-                selectedMode = modeVals.getInt(optionNames.indexOf(selected),0);
+
+                selectedMode = stateModeVals.getInt(optionNames.indexOf(selected),0);
             }
         });
 
@@ -96,6 +101,18 @@ public final class EditSettingActivity extends AbstractPluginActivity
                     }
                     case WifiCallingManager.MODE_ON: {
                         getListView().setItemChecked(options.getPosition(getString(R.string.on_mode)), true);
+                        break;
+                    }
+                    case WifiCallingManager.PREFER_WIFI: {
+                        getListView().setItemChecked(options.getPosition(getString(R.string.wifi_preferred_mode)), true);
+                        break;
+                    }
+                    case WifiCallingManager.PREFER_CELL: {
+                        getListView().setItemChecked(options.getPosition(getString(R.string.cell_preferred_mode)), true);
+                        break;
+                    }
+                    case WifiCallingManager.PREFER_NEVER_CELL: {
+                        getListView().setItemChecked(options.getPosition(getString(R.string.never_cell_mode)), true);
                         break;
                     }
                 }

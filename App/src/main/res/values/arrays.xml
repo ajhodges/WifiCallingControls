@@ -4,11 +4,17 @@
         <item>@string/on_mode</item>
         <item>@string/off_mode</item>
         <item>@string/toggle_mode</item>
+        <item>@string/wifi_preferred_mode</item>
+        <item>@string/cell_preferred_mode</item>
+        <item>@string/never_cell_mode</item>
     </string-array>
     <integer-array name="select_modes_vals">
         <item>1</item>
         <item>0</item>
         <item>-1</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
     </integer-array>
     <string-array name="condition_modes">
         <item>@string/on_mode</item>

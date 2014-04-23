@@ -12,6 +12,10 @@ public abstract class WifiCallingManager {
     final public static int MODE_OFF = 0;
     final public static int MODE_ON = 1;
 
+    final public static int PREFER_WIFI = 10;
+    final public static int PREFER_CELL = 11;
+    final public static int PREFER_NEVER_CELL = 12;
+
     public static final int TYPE_MOVIAL = 0;
     public static final int TYPE_SAMSUNG = 1;
     public static final int TYPE_KINETO = 2;
@@ -56,4 +60,9 @@ public abstract class WifiCallingManager {
 
     //Toggle Wifi Calling mode(-1=toggle, 0=off, 1=on)
     public abstract void toggleWifi(Context context, int mode);
+
+    public abstract int getPreferred(Context context);
+
+    //Set "preferred" option
+    public abstract void setPreferred(Context context, int preferred);
 }

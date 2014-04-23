@@ -3,8 +3,10 @@ package com.ajhodges.wificallingcontrols.ipphone;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.R;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -16,9 +18,16 @@ import dalvik.system.DexClassLoader;
  * Created by Adam on 3/9/14.
  */
 public class MovialCallingManager extends WifiCallingManager {
+    public static final int MOVIAL_PREFER_WIFI = 0;
+    public static final int MOVIAL_PREFER_CELL = 2;
+    public static final int MOVIAL_PREFER_NEVER_CELL = 1;
+
     private static Class<?> ipPhoneSettings = null;
     private static Method getBoolean = null;
     private static Method putBoolean = null;
+
+    private static Method getInt = null;
+    private static Method putInt = null;
 
     private MovialCallingManager(Context context){
         //Use dexclassloader to get the IPPhoneSettings class from the WifiCall app
@@ -28,6 +37,8 @@ public class MovialCallingManager extends WifiCallingManager {
             ipPhoneSettings = loader.loadClass("com.movial.ipphone.IPPhoneSettings");
             getBoolean = ipPhoneSettings.getMethod("getBoolean", new Class[]{ContentResolver.class, String.class, boolean.class});
             putBoolean = ipPhoneSettings.getMethod("putBoolean", new Class[]{ContentResolver.class, String.class, boolean.class});
+            getInt = ipPhoneSettings.getMethod("getInt", new Class[]{ContentResolver.class, String.class, int.class});
+            putInt = ipPhoneSettings.getMethod("putInt", new Class[]{ContentResolver.class, String.class, int.class});
         } catch (ClassNotFoundException e) {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
             e.printStackTrace();
@@ -99,6 +110,59 @@ public class MovialCallingManager extends WifiCallingManager {
                 e.printStackTrace();
             }
 
+        }
+    }
+
+    @Override
+    public int getPreferred(Context context) {
+        int preferred = -1;
+
+        try {
+            Integer preferredState = (Integer)getInt.invoke(null, context.getContentResolver(), "PREFERRED_OPTION", 0);
+            switch(preferredState){
+                case MOVIAL_PREFER_WIFI:
+                    preferred = PREFER_WIFI;
+                    break;
+                case MOVIAL_PREFER_CELL:
+                    preferred = PREFER_CELL;
+                    break;
+                case MOVIAL_PREFER_NEVER_CELL:
+                    preferred = PREFER_NEVER_CELL;
+                    break;
+            }
+        } catch (IllegalAccessException e) {
+            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            e.printStackTrace();
+        }
+        return preferred;
+    }
+
+    @Override
+    public void setPreferred(Context context, int preferred) {
+        if(getPreferred(context) == preferred){
+            return;
+        }
+        try {
+            switch (preferred) {
+                case PREFER_WIFI:
+                    putInt.invoke(null, context.getContentResolver(), "PREFERRED_OPTION", MOVIAL_PREFER_WIFI);
+                    break;
+                case PREFER_CELL:
+                    putInt.invoke(null, context.getContentResolver(), "PREFERRED_OPTION", MOVIAL_PREFER_CELL);
+                    break;
+                case PREFER_NEVER_CELL:
+                    putInt.invoke(null, context.getContentResolver(), "PREFERRED_OPTION", MOVIAL_PREFER_NEVER_CELL);
+                    break;
+            }
+        } catch (InvocationTargetException e) {
+            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            e.printStackTrace();
         }
     }
 }

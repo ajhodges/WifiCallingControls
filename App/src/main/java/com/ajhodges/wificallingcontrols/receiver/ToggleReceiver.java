@@ -29,9 +29,15 @@ public class ToggleReceiver extends BroadcastReceiver{
             final int mode = bundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE);
 
             WifiCallingManager wifiCallingManager = WifiCallingManager.getInstance(context);
-            wifiCallingManager.toggleWifi(context, mode);
 
-            context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", false);
+            if(mode < WifiCallingManager.PREFER_WIFI) {
+                wifiCallingManager.toggleWifi(context, mode);
+                context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", false);
+            }
+            else {
+                wifiCallingManager.setPreferred(context, mode);
+            }
+
         }
     }
 }
