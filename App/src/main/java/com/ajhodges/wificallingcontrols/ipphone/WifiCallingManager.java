@@ -3,6 +3,9 @@ package com.ajhodges.wificallingcontrols.ipphone;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
+
+import com.ajhodges.wificallingcontrols.Constants;
 
 /**
  * Created by Adam on 4/7/2014.
@@ -19,6 +22,7 @@ public abstract class WifiCallingManager {
     public static final int TYPE_MOVIAL = 0;
     public static final int TYPE_SAMSUNG = 1;
     public static final int TYPE_KINETO = 2;
+    public static final int TYPE_LGE = 3;
     public static int type = -1;
 
     public static String apkFile = "";
@@ -33,6 +37,9 @@ public abstract class WifiCallingManager {
                     type = TYPE_MOVIAL;
                     apkFile = app.sourceDir;
                     break;
+                } else if (app.packageName.equals("com.lge.wificall")){
+                    type = TYPE_LGE;
+                    apkFile = app.sourceDir;
                 } else if (app.packageName.equals("com.samsung.tmowfc.wfccontroller")) {
                     type = TYPE_SAMSUNG;
                     //I don't like this (hardcoding)... but the class we want is in an external library.
@@ -44,11 +51,14 @@ public abstract class WifiCallingManager {
                 }
             }
         }
+
         switch(type){
             case TYPE_MOVIAL:
                 return MovialCallingManager.getInstance(context);
             case TYPE_SAMSUNG:
                 return SamsungCallingManager.getInstance(context);
+            case TYPE_LGE:
+                return LGECallingManager.getInstance(context);
             default:
                 return null;
         }
