@@ -147,6 +147,12 @@
                        android:resource="@xml/widgetprovider"/>
         </receiver>
 
+        <service android:name=".widget.ToggleWidgetService" android:enabled="true">
+            <intent-filter>
+                <action android:name="com.ajhodges.wificallingcontrols.WIDGET_UPDATE_ACTION"/>
+            </intent-filter>
+        </service>
+
         <receiver android:name="com.ajhodges.wificallingcontrols.receiver.UpdateReceiver" android:exported="true">
             <intent-filter>
                 <!--Called once when disabling wifi calling, twice when enabling -->
