@@ -18,6 +18,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.Locale;
 
@@ -72,11 +73,12 @@ public final class InfoActivity extends Activity
 
             try
             {
+                Toast.makeText(InfoActivity.this, "Wifi Calling Controls requires an automation app such as Tasker/Locale/Llama. Please install one of these apps.", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(
                         Intent.ACTION_VIEW,
                         Uri.parse(String.format(Locale.US,
                                 APP_STORE_URI,
-                                "com.twofortyfouram.locale", getPackageName()))).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)); //$NON-NLS-1$
+                                "com.kebab.Llama", getPackageName()))).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)); //$NON-NLS-1$
             }
             catch (final Exception e)
             {

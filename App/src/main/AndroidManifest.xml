@@ -56,7 +56,6 @@
         android:label="@string/plugin_name"
         android:theme="@style/Theme.Locale.Dark"
         android:uiOptions="splitActionBarWhenNarrow"
-        android:debuggable="false"
         >
 
         <!--

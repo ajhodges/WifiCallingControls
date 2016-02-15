@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/App/App.iml" filepath="$PROJECT_DIR$/App/App.iml" />
-      <module fileurl="file://$PROJECT_DIR$/WifiCallingToggle.iml" filepath="$PROJECT_DIR$/WifiCallingToggle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WifiCallingControls.iml" filepath="$PROJECT_DIR$/WifiCallingControls.iml" />
       <module fileurl="file://$PROJECT_DIR$/locale-api/locale-api.iml" filepath="$PROJECT_DIR$/locale-api/locale-api.iml" />
     </modules>
   </component>
 </project>
-
