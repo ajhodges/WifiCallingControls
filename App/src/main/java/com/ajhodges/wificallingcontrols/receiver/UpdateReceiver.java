@@ -5,7 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
+import com.ajhodges.wificallingcontrols.Constants;
 import com.ajhodges.wificallingcontrols.ui.EditConditionActivity;
 import com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider;
 
