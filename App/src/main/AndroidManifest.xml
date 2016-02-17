@@ -149,7 +149,7 @@
                        android:resource="@xml/widgetprovider"/>
         </receiver>
 
-        <service android:name=".widget.ToggleWidgetService" android:enabled="true">
+        <service android:name=".service.ToggleWidgetService" android:enabled="true">
             <intent-filter>
                 <action android:name="com.ajhodges.wificallingcontrols.WIDGET_UPDATE_ACTION"/>
             </intent-filter>

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.NotCompatibleException;
 
 /**
  * Created by Adam on 4/7/2014.
@@ -27,7 +28,7 @@ public abstract class WifiCallingManager {
 
     public static String apkFile = "";
     //get singleton
-    public static WifiCallingManager getInstance(Context context){
+    public static WifiCallingManager getInstance(Context context) throws NotCompatibleException {
         //test to see what kind of IMS this phone uses
         if(type == -1){
             //Find location of the WifiCall app
@@ -60,7 +61,7 @@ public abstract class WifiCallingManager {
             case TYPE_LGE:
                 return LGECallingManager.getInstance(context);
             default:
-                return null;
+                throw new NotCompatibleException();
         }
 
     }

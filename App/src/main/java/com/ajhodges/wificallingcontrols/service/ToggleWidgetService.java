@@ -1,4 +1,4 @@
-package com.ajhodges.wificallingcontrols.widget;
+package com.ajhodges.wificallingcontrols.service;
 
 import android.app.IntentService;
 import android.app.PendingIntent;
@@ -8,12 +8,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.NotCompatibleException;
 import com.ajhodges.wificallingcontrols.R;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
 import com.ajhodges.wificallingcontrols.receiver.ToggleReceiver;
+import com.ajhodges.wificallingcontrols.widget.ToggleWidgetProvider;
 
 /**
  * Created by Adam on 2/15/2016.
@@ -57,25 +60,29 @@ public class ToggleWidgetService extends IntentService {
         Log.v(Constants.LOG_TAG, "onUpdate: updating widget state");
 
         //get the current Wifi Calling state
-        if(ipphoneEnabled == null)
-            ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
+        try{
+            if(ipphoneEnabled == null)
+                ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
 
-        for(int i : ids){
-            //set onClick to update the widget and toggle the Wifi Calling state
-            Intent updateWidgets = new Intent();
-            updateWidgets.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-            updateWidgets.putExtra(ToggleWidgetProvider.EXTRA_WIDGET_IDS, ids);
-            updateWidgets.putExtra(ToggleWidgetProvider.EXTRA_WIDGET_TOGGLE, ipphoneEnabled);
+            for(int i : ids){
+                //set onClick to update the widget and toggle the Wifi Calling state
+                Intent updateWidgets = new Intent();
+                updateWidgets.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                updateWidgets.putExtra(ToggleWidgetProvider.EXTRA_WIDGET_IDS, ids);
+                updateWidgets.putExtra(ToggleWidgetProvider.EXTRA_WIDGET_TOGGLE, ipphoneEnabled);
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateWidgets, PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, updateWidgets, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
-            views.setOnClickPendingIntent(R.id.toggle_button_view, pendingIntent);
+                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+                views.setOnClickPendingIntent(R.id.toggle_button_view, pendingIntent);
 
-            //set the widget background to reflect the current Wifi Calling State
-            views.setImageViewResource(R.id.toggle_button_view, (ipphoneEnabled ? R.drawable.ic_toggle_on : R.drawable.ic_toggle_off));
+                //set the widget background to reflect the current Wifi Calling State
+                views.setImageViewResource(R.id.toggle_button_view, (ipphoneEnabled ? R.drawable.ic_toggle_on : R.drawable.ic_toggle_off));
 
-            AppWidgetManager.getInstance(context).updateAppWidget(i, views);
+                AppWidgetManager.getInstance(context).updateAppWidget(i, views);
+            }
+        } catch (NotCompatibleException ex){
+            Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.service.ToggleWidgetService;
 
 /**
  * Created by Adam on 3/13/14.

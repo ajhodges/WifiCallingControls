@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.NotCompatibleException;
 import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
@@ -25,20 +27,25 @@ public class QueryReceiver extends BroadcastReceiver{
             BundleScrubber.scrub(bundle);
 
             if(PluginBundleManager.isBundleValid(bundle)){
-                final Boolean ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
-                final boolean conditionState = bundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE) == 1;
-                if(ipphoneEnabled){
-                    if(conditionState){
-                        setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
-                    }else{
-                        setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_UNSATISFIED);
+                try{
+                    final Boolean ipphoneEnabled = WifiCallingManager.getInstance(context).getIPPhoneEnabled(context);
+                    final boolean conditionState = bundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE) == 1;
+                    if(ipphoneEnabled){
+                        if(conditionState){
+                            setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
+                        }else{
+                            setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_UNSATISFIED);
+                        }
+                    } else{
+                        if(conditionState){
+                            setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_UNSATISFIED);
+                        }else{
+                            setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
+                        }
                     }
-                } else{
-                    if(conditionState){
-                        setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_UNSATISFIED);
-                    }else{
-                        setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_SATISFIED);
-                    }
+                } catch (NotCompatibleException ex){
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    setResultCode(com.twofortyfouram.locale.Intent.RESULT_CONDITION_UNSATISFIED);
                 }
             }
         }

@@ -4,7 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.ajhodges.wificallingcontrols.NotCompatibleException;
 import com.ajhodges.wificallingcontrols.bundle.BundleScrubber;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
@@ -29,16 +31,19 @@ public class ToggleReceiver extends BroadcastReceiver{
         {
             final int mode = bundle.getInt(PluginBundleManager.BUNDLE_EXTRA_INT_MODE);
 
-            WifiCallingManager wifiCallingManager = WifiCallingManager.getInstance(context);
+            try{
+                WifiCallingManager wifiCallingManager = WifiCallingManager.getInstance(context);
 
-            if(mode < WifiCallingManager.PREFER_WIFI) {
-                wifiCallingManager.toggleWifi(context, mode);
-                context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", false);
+                if(mode < WifiCallingManager.PREFER_WIFI) {
+                    wifiCallingManager.toggleWifi(context, mode);
+                    context.getSharedPreferences("ToggleWidgetProvider", Context.MODE_PRIVATE).edit().putBoolean("widgetUpdating", false);
+                }
+                else {
+                    wifiCallingManager.setPreferred(context, mode);
+                }
+            } catch(NotCompatibleException ex){
+                Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
             }
-            else {
-                wifiCallingManager.setPreferred(context, mode);
-            }
-
         }
     }
 }
