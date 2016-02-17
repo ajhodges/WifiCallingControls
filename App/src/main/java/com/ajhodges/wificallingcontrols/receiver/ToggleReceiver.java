@@ -13,9 +13,10 @@ import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
  * Created by Adam on 3/9/14.
  */
 public class ToggleReceiver extends BroadcastReceiver{
+    public static final String TOGGLE_WFC_ACTION = "com.ajhodges.wificallingcontrols.TOGGLE_WFC";
     @Override
     public void onReceive(Context context, Intent intent) {
-        if(!com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())){
+        if(!com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING.equals(intent.getAction()) || !TOGGLE_WFC_ACTION.equals(intent.getAction())){
             //unexpected intent
             return;
         }

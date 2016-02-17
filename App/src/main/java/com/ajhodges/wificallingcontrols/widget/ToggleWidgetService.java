@@ -13,6 +13,7 @@ import com.ajhodges.wificallingcontrols.Constants;
 import com.ajhodges.wificallingcontrols.R;
 import com.ajhodges.wificallingcontrols.bundle.PluginBundleManager;
 import com.ajhodges.wificallingcontrols.ipphone.WifiCallingManager;
+import com.ajhodges.wificallingcontrols.receiver.ToggleReceiver;
 
 /**
  * Created by Adam on 2/15/2016.
@@ -41,7 +42,7 @@ public class ToggleWidgetService extends IntentService {
 
             //This intent is coming from a widget click event! Broadcast toggle pendingintent
             Intent fireIntent = new Intent();
-            fireIntent.setAction(com.twofortyfouram.locale.Intent.ACTION_FIRE_SETTING);
+            fireIntent.setAction(ToggleReceiver.TOGGLE_WFC_ACTION);
 
             final Bundle resultBundle = PluginBundleManager.generateBundle(context, ipphoneEnabled ? 1 : 0);
             fireIntent.putExtra(com.twofortyfouram.locale.Intent.EXTRA_BUNDLE, resultBundle);
