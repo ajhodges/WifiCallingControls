@@ -158,6 +158,7 @@
         <receiver android:name="com.ajhodges.wificallingcontrols.receiver.UpdateReceiver" android:exported="true">
             <intent-filter>
                 <!--Called once when disabling wifi calling, twice when enabling -->
+                <action android:name="IMS_REGISTRATION"/>
                 <action android:name="com.movial.IMS_REGISTRATION"/>
                 <action android:name="com.movial.WFC_STATUS"/>
                 <action android:name="action_wfc_switch_profile_broadcast"/>
