@@ -3,8 +3,10 @@ package com.ajhodges.wificallingcontrols.ipphone;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.ajhodges.wificallingcontrols.Constants;
+import com.ajhodges.wificallingcontrols.R;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -64,7 +66,8 @@ public class MovialCallingManager extends WifiCallingManager {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
+            moveToSystem.show();
             e.printStackTrace();
         }
         Log.d(Constants.LOG_TAG, "Current wifi calling state: " + (ipphoneEnabled ? "on" : "off"));
@@ -85,7 +88,8 @@ public class MovialCallingManager extends WifiCallingManager {
                 Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+                Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
+                moveToSystem.show();
                 e.printStackTrace();
             }
         } else {
@@ -104,7 +108,8 @@ public class MovialCallingManager extends WifiCallingManager {
                 Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
-                Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+                Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
+                moveToSystem.show();
                 e.printStackTrace();
             }
 
@@ -132,7 +137,8 @@ public class MovialCallingManager extends WifiCallingManager {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
+            moveToSystem.show();
             e.printStackTrace();
         }
         return preferred;
@@ -156,7 +162,8 @@ public class MovialCallingManager extends WifiCallingManager {
                     break;
             }
         } catch (InvocationTargetException e) {
-            Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
+            moveToSystem.show();
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");

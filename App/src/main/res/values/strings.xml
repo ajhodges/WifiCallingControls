@@ -9,5 +9,5 @@
     <string name="cell_preferred_mode">Cell Preferred</string>
     <string name="never_cell_mode">Never Use Cell Network</string>
     <string name="toggle_widget">WiFi Calling Toggle</string>
-    <string name="samsung_toast">Error: WiFi Calling Controls must be installed as a system app. This requires root. Search the app store for \'system mover\'.</string>
+    <string name="system_wfc_toast">Error: WiFi Calling Controls must be installed as a system app on your device. This requires root. Search the app store for \'system mover\'.</string>
 </resources>

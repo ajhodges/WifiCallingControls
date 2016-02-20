@@ -65,7 +65,7 @@ public class SamsungCallingManager extends WifiCallingManager{
             Enum registerContractState = (Enum)getRegister.invoke(null, context.getContentResolver());
             ipphoneEnabled = (registerContractState.name().equals("REGISTER"));
         } catch (InvocationTargetException e) {
-            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.samsung_toast, Toast.LENGTH_SHORT);
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
             moveToSystem.show();
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -98,7 +98,7 @@ public class SamsungCallingManager extends WifiCallingManager{
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.samsung_toast, Toast.LENGTH_SHORT);
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
             moveToSystem.show();
             e.printStackTrace();
         }
@@ -121,7 +121,7 @@ public class SamsungCallingManager extends WifiCallingManager{
             Log.e(Constants.LOG_TAG, "ERROR: This app is not compatible with your phone");
             e.printStackTrace();
         } catch (InvocationTargetException e) {
-            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.samsung_toast, Toast.LENGTH_SHORT);
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
             moveToSystem.show();
             e.printStackTrace();
         }
@@ -146,7 +146,7 @@ public class SamsungCallingManager extends WifiCallingManager{
                     break;
             }
         } catch (InvocationTargetException e) {
-            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.samsung_toast, Toast.LENGTH_SHORT);
+            Toast moveToSystem = Toast.makeText(context.getApplicationContext(), R.string.system_wfc_toast, Toast.LENGTH_SHORT);
             moveToSystem.show();
             e.printStackTrace();
         } catch (IllegalAccessException e) {
