@@ -29,6 +29,8 @@
     <uses-permission android:name="movial.permission.IPPHONE_SETTINGS" />
     <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.READ_WFCPROVIDER" />
     <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_WILDCARD" />
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_PROFILE"/>
+    <uses-permission android:name="com.samsung.tmowfc.wfcprovider.permission.WRITE_REGISTER"/>
 
     <!-- Locale 4.x supports API 8 or greater. -->
     <uses-sdk
