@@ -22,8 +22,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ajhodges.wificallingcontrols"
     android:installLocation="internalOnly"
-    android:versionCode="4"
-    android:versionName="1.2" >
+    android:versionCode="5"
+    android:versionName="1.3" >
 
     <uses-permission android:name="lge.permission.IPPHONE_SETTINGS" />
     <uses-permission android:name="movial.permission.IPPHONE_SETTINGS" />
